@@ -10,6 +10,18 @@ const ItemSchema = new Schema({
         type: Number,
         required: true
     },
+    icon: {
+        type: String,
+        required: true
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    insta: {
+        type: String,
+        required: true
+    },
     approved: {
         type: Boolean,
         required: true

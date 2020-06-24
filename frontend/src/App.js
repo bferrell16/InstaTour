@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
 import {
   GoogleMap,
   Marker,
   InfoWindow,
   useLoadScript,
 } from "@react-google-maps/api";
+import InstagramEmbed from 'react-instagram-embed';
 import mapStyleLight from './mapStyleLight';
 import mapStyleDark from './mapStyleDark';
+//Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -29,23 +30,11 @@ export default function App() {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
-  const [markers, setMarkers] = React.useState([]);
   const [selected, setSelected] = React.useState(null);
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map;
-  }, []);
-
-  const onMapClick = React.useCallback((e) => {
-    setMarkers((current) => [
-      ...current,
-      {
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-        time: new Date(),
-      },
-    ]);
   }, []);
 
   const [data, setData] = useState([]);
@@ -72,7 +61,6 @@ export default function App() {
         zoom={8}
         center={center}
         options={options}
-        onClick={onMapClick}
         onLoad={onMapLoad}
       >
         {data.map((marker) => (
@@ -83,7 +71,7 @@ export default function App() {
               setSelected(marker);
             }}
             icon={{
-              url: `/triangle.svg`,
+              url: marker.icon, //in the location suggestion form, use a dropdown that pushes the string for which icon
               scaledSize: new window.google.maps.Size(30, 30),
             }}
           />
@@ -97,9 +85,19 @@ export default function App() {
             }}
           >
             <div>
+              <InstagramEmbed
+                url={selected.insta}
+                maxWidth={320}
+                hideCaption={true}
+                containerTagName='div'
+              />
               <h2>
-                Alert
+                {selected.title}
               </h2>
+              <h4>
+                Address: 
+              </h4>
+              <href></href>
             </div>
           </InfoWindow>
         ) : null}

@@ -20,7 +20,10 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   let d = new Item();
   d.lat = 38.7459467;
-  d.lng = -75.5465889;
+  d.lng = -76.5465889;
+  d.icon = "/art.svg"
+  d.title = "Test Art"
+  d.insta = "https://www.instagram.com/p/CByvm3wlu_I/"
   d.approved = true;
 
   d.save((err) => {
