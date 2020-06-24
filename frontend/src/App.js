@@ -5,6 +5,20 @@ import {
   InfoWindow,
   useLoadScript,
 } from "@react-google-maps/api";
+
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng
+} from "use-places-autocomplete";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption
+} from "@reach/combobox";
+import "@reach/combobox/styles.css";
+
 import InstagramEmbed from 'react-instagram-embed';
 import mapStyleLight from './mapStyleLight';
 import mapStyleDark from './mapStyleDark';
@@ -37,6 +51,11 @@ export default function App() {
     mapRef.current = map;
   }, []);
 
+  const panMap = React.useCallback(({lat, lng}) => {
+    mapRef.current.panTo({lat, lng});
+    mapRef.current.setZoom(13);
+  });
+
   const [data, setData] = useState([]);
  
   useEffect(() => {
@@ -55,10 +74,13 @@ export default function App() {
   return (
     <div>
       <h1>InstaTour</h1>
+
+      <Search panMap={panMap}/>
+      <Locate panMap={panMap}/>
       <GoogleMap
         id="map"
         mapContainerStyle={mapContainerStyle}
-        zoom={8}
+        zoom={13}
         center={center}
         options={options}
         onLoad={onMapLoad}
@@ -106,3 +128,60 @@ export default function App() {
   );
 }
 
+function Locate({panMap}) {
+  return (
+  <button className="locate" onClick={() => {
+    navigator.geolocation.getCurrentPosition((pos) =>{
+      panMap( {
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude
+      })
+    }, () => null)
+  }}>
+    <img src="./compass.svg" alt="Locate Me" />
+  </button>
+  );
+}
+
+function Search({panMap}) {
+  const {ready, value, suggestions: {status, data}, setValue, clearSuggestions} = usePlacesAutocomplete({
+    requestOptions : {
+      location: {lat: () => 39.7459467, lng: () => -75.5465889},
+      radius: 100 * 1000,
+    },
+  });
+
+  return (
+    <div className="search">
+    <Combobox 
+      onSelect= {async (address) => {
+        setValue("", false);
+        clearSuggestions();
+        try{
+          const results = await getGeocode({address});
+          const {lat, lng} = await getLatLng(results[0]);
+          panMap({lat,lng});
+        } catch {
+          console.log("Search Error");
+        }
+      }}
+    >
+      <ComboboxInput 
+        value = {value} 
+        onChange= {(event) => {
+          setValue(event.target.value);
+        }}
+        disabled={!ready}
+        placeholder="Enter an Address"
+      />
+      <ComboboxPopover>
+        <ComboboxList>
+          {status === "OK" && data.map(({id, description}) => (
+          <ComboboxOption key={id} value={description}/>
+          ))}
+        </ComboboxList>
+      </ComboboxPopover>
+    </Combobox>
+  </div>
+  );
+}
