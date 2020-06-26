@@ -8,7 +8,7 @@ const Item = require('../models/Item');
 // @description get all items
 // @access public
 router.get('/', (req, res) => {
-  Item.find((err,data) => {
+  Item.find((err,data) => { //Item.find({approved: true}, (err,data) => { to query only approved
     if(err) {
       return res.json({sucess: false, error:err});
     } else {
@@ -17,17 +17,23 @@ router.get('/', (req, res) => {
   })
 });
 
+// @route POST items
+// @description add a new item
+// @access public
 router.post('/', (req, res) => {
   let d = new Item();
-  d.lat = 38.7459467;
-  d.lng = -76.5465889;
-  d.icon = "/art.svg"
-  d.title = "Test Art"
-  d.insta = "https://www.instagram.com/p/CByvm3wlu_I/"
-  d.approved = true;
+  d.lat = req.body.lat;
+  d.lng = req.body.lng;
+  d.icon = req.body.icon
+  d.title = req.body.title
+  d.insta = req.body.insta
+  d.approved = req.body.approved;
 
   d.save((err) => {
-    if(err) return res.json({sucess:false, error:err});
+    if(err) {
+      console.log("Error Saving");
+      return res.json({sucess:false, error:err});
+    }
     return res.json({sucess:true});
   });
 });
