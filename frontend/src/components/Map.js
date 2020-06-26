@@ -54,7 +54,7 @@ export default function Map() {
   const panMap = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(13);
-  },[]);
+  }, []);
 
   const [data, setData] = useState([]);
 
@@ -126,10 +126,15 @@ export default function Map() {
           </InfoWindow>
         ) : null}
       </GoogleMap>
-      
-      <button className="btn-white suggest" onClick={() => {
-        window.location.assign('/suggest');
-      }}> Suggest a new location</button>
+      <button
+        className="btn-white suggest"
+        onClick={() => {
+          window.location.assign("/suggest");
+        }}
+      >
+        {" "}
+        Suggest a new location
+      </button>
     </div>
   );
 }
