@@ -73,7 +73,7 @@ export default function Map() {
 
   return (
     <div>
-      <h1>InstaTour</h1>
+      <h1>InstaSpots</h1>
 
       <Search panMap={panMap} />
       <Locate panMap={panMap} />
@@ -135,7 +135,9 @@ export default function Map() {
         {" "}
         Suggest a new location
       </button>
-         <a className="insta" href="https://www.instagram.com/brandonferrell16/"><img src="./instagram.svg" alt="My Instagram" /></a>
+      <a className="insta" href="https://www.instagram.com/brandonferrell16/">
+        <img src="./instagram.svg" alt="My Instagram" />
+      </a>
     </div>
   );
 }

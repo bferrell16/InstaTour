@@ -1,4 +1,4 @@
-# InstaTour
+# InstaSpots
 Catalogue of instagram friendly photo spots
 
 Website uses React, Node, Express, MongoDb, and the google maps api to show users on a map, or
