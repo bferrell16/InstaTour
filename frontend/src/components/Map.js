@@ -113,7 +113,7 @@ export default function Map() {
                 hideCaption={true}
                 containerTagName="div"
               />
-              <h2>{selected.title}</h2>
+              <h3>{selected.title}</h3>
               <h4>
                 <a
                   href={`https://www.google.com/maps/search/?api=1&query=${selected.lat},${selected.lng}`}
@@ -135,6 +135,7 @@ export default function Map() {
         {" "}
         Suggest a new location
       </button>
+         <a className="insta" href="https://www.instagram.com/brandonferrell16/"><img src="./instagram.svg" alt="My Instagram" /></a>
     </div>
   );
 }

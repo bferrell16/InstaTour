@@ -80,3 +80,12 @@ h1 {
   font-size: 1.25rem;
 }
 
+.insta {
+  width: 60px;
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  background: none;
+  border: none;
+  z-index: 10;
+}
