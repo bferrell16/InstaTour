@@ -32,7 +32,7 @@ router.post("/", (req, res) => {
 
   d.save((err) => {
     if (err) {
-      console.log("Error Saving");
+      console.log(d);
       return res.json({ sucess: false, error: err });
     }
     return res.json({ sucess: true });

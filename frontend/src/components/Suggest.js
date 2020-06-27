@@ -58,7 +58,7 @@ class Suggest extends React.Component {
       },
       body: JSON.stringify(data),
     };
-    fetch("/items", options);
+    fetch("/items/", options);
   }
 
   handleChange(event) {
@@ -84,7 +84,8 @@ class Suggest extends React.Component {
             <Card.Body>
               <Card.Title>Suggest a new photo location</Card.Title>
               <Form
-                onSubmit={() => {
+                onSubmit={(e) => {
+		
                   this.putData();
                 }}
               >
