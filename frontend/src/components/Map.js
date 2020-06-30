@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import Modal from "react-bootstrap/modal";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 import {
   GoogleMap,
   Marker,
@@ -36,6 +39,7 @@ const center = {
 const options = {
   styles: mapStyleLight,
   disableDefaultUI: true,
+  gestureHandling: "greedy",
   zoomControl: true,
 };
 
@@ -45,6 +49,11 @@ export default function Map() {
     libraries,
   });
   const [selected, setSelected] = React.useState(null);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -60,7 +69,7 @@ export default function Map() {
 
   useEffect(() => {
     const fetchData = async () => {
-      fetch("/items")
+      fetch("/items/")
         .then((res) => res.json())
         .then((list) => setData(list.info)); //working, component shows this
     };
@@ -98,32 +107,29 @@ export default function Map() {
             }}
           />
         ))}
-
         {selected ? (
-          <InfoWindow
-            position={{ lat: selected.lat, lng: selected.lng }}
-            onCloseClick={() => {
-              setSelected(null);
-            }}
-          >
-            <div>
+          <Modal show={selected} onHide={() => setSelected(null)}>
+            <Modal.Header closeButton>
+              <Modal.Title>{selected.title}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
               <InstagramEmbed
                 url={selected.insta}
-                maxWidth={320}
+                maxWidth={475}
                 hideCaption={true}
                 containerTagName="div"
               />
-              <h3>{selected.title}</h3>
-              <h4>
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${selected.lat},${selected.lng}`}
-                  target="_blank"
-                >
-                  Directions
-                </a>
-              </h4>
-            </div>
-          </InfoWindow>
+            </Modal.Body>
+            <Modal.Footer>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${selected.lat},${selected.lng}`}
+                target="_blank"
+                class="mr-auto"
+              >
+                Directions
+              </a>
+            </Modal.Footer>
+          </Modal>
         ) : null}
       </GoogleMap>
       <button
@@ -133,7 +139,7 @@ export default function Map() {
         }}
       >
         {" "}
-        Suggest a new location
+        Suggest a New Location
       </button>
       <a className="insta" href="https://www.instagram.com/brandonferrell16/">
         <img src="./instagram.svg" alt="My Instagram" />
@@ -199,7 +205,7 @@ function Search({ panMap }) {
             setValue(event.target.value);
           }}
           disabled={!ready}
-          placeholder="Enter an Address"
+          placeholder="Enter a Location"
         />
         <ComboboxPopover>
           <ComboboxList>

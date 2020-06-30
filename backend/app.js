@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/items', itemRouter);
+app.use('/items', itemRouter); //app.use('/', itemRouter); on aws cuz nginx reroutes from /items to / to node
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler

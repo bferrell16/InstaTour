@@ -54,6 +54,7 @@ h1 {
   background: transparent;
   background-color: black;
   color: #fff !important;
+  white-space: nowrap; 
 }
 .btn-white:hover {
   border: solid 2px #fff;
@@ -88,4 +89,23 @@ h1 {
   background: none;
   border: none;
   z-index: 10;
+}
+
+@media (max-width: 900px) {
+  .insta {
+    width: 40px;
+  }
+
+  h1 {
+    display: none;
+  }
+
+  .search {
+    width: 250px;
+  }
+
+  .search input {
+    padding: 0.25rem;
+    font-size: 1rem;
+  }
 }
