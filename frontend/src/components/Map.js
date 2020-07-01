@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Modal from "react-bootstrap/modal";
+import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
@@ -138,7 +138,6 @@ export default function Map() {
           window.location.assign("/suggest");
         }}
       >
-        {" "}
         Suggest a New Location
       </button>
       <a className="insta" href="https://www.instagram.com/brandonferrell16/">
