@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
+import '../index.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   GoogleMap,
   Marker,
-  InfoWindow,
   useLoadScript,
 } from "@react-google-maps/api";
 
@@ -32,9 +31,9 @@ const mapContainerStyle = {
   width: "100vw",
   height: "100vh",
 };
-const center = {
-  lat: 39.7459467,
-  lng: -75.5465889,
+const defaultCenter = {
+  lat: 38.9072,
+  lng: -77.0369,
 };
 const options = {
   styles: mapStyleLight,
@@ -43,17 +42,12 @@ const options = {
   zoomControl: true,
 };
 
-export default function Map() {
+export default function Map(props) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
   const [selected, setSelected] = React.useState(null);
-
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -67,13 +61,14 @@ export default function Map() {
 
   const [data, setData] = useState([]);
 
+  const center = (props.location.state === undefined) ? defaultCenter : props.location.state.centeredOn;
+
   useEffect(() => {
     const fetchData = async () => {
       fetch("/items/")
         .then((res) => res.json())
         .then((list) => setData(list.info)); //working, component shows this
     };
-
     fetchData();
   }, []);
 
@@ -82,8 +77,7 @@ export default function Map() {
 
   return (
     <div>
-      <h1>InstaSpots</h1>
-
+      <a href='/'><h1>InstaSpots</h1><img className='home' src='homeIcon.svg' alt='home'/></a>
       <Search panMap={panMap} />
       <Locate panMap={panMap} />
       <GoogleMap

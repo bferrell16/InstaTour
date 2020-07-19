@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    font-family: 'bree';
+    background: transparent linear-gradient(125deg, #FF000027 0%, #A7D8DE 100%) 0% 0% no-repeat padding-box;
+    opacity: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100vh;
+}
+
+h2 {
+    color: white;
+    font-size: 7vw;
+    text-align: left;
+    text-shadow: 0px 3px 6px #00000041;
+    letter-spacing: 0px;
+}
+
+h3 {
+    color: white;
+    font-size: 3vw;
+    text-align: left;
+    letter-spacing: 0px;
+}
+
+.card {
+    background: transparent;
+    border: 0px;
+}
+
+.list-group-item {
+    background: transparent;
+}
+
+.tourButtons {
+    height: 100%;
+    width: 100%;
+    color: black;
+    display: block;
+    text-align: left;
+}
+
+.artContainer {
+    position: relative;
+}
+
+h5 {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: white;
+    font-family: 'bree';
+    font-size: 2vw;
+    text-align: right;
+    letter-spacing: 0px;
+    z-index: 10;
+}
+
+p {
+    position: absolute;
+    top: 2vw;
+    right: 0px;
+    text-align: right;
+    color: white;
+    font-family: 'bree';
+    font-size: 1vw;
+}
+
+.map-it {
+    /*background: transparent url('./map-it-mask2.png') 0% 0% no-repeat padding-box;*/
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+    width: 40vw;
+    height: auto;
+    border: 1px solid #9292928e;
+    border-radius: 54px;
+    text-align: center;
+    vertical-align: middle;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.map-it-text {
+    background-size: 20vw;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-image: url('./map-it-mask2.png') ;
+    -webkit-text-stroke: 1px black;
+    color: white;
+    font-family: 'bree';
+    font-size: 8vw;
+    opacity: 1;
+    letter-spacing: 0px;
+}
+
+.art {
+    width: 45vw;
+    height: auto;
+    opacity: 1;
+}
+
+@media (max-width: 900px) {
+    h2 {
+        margin-left: 3vw;
+        font-size: 10vw;
+    }
+    
+    h3 {
+        font-size: 5vw;
+        margin-left: 3vw;
+    }
+    
+    .map-it {
+        border-radius: 7vw;
+        margin-left: 3vw;
+        width: 80vw;
+    }
+    
+    .map-it-text {
+        font-weight: 600;
+        font-size: 20vw;
+    }
+    
+    .artContainer {
+        display: none;
+        /*width: 75vw;*/
+    }
+
+    .list-group {
+        width: 80vw;
+    }
+    .card-body {
+        padding-left: 3vw;
+    }
+  }
