@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Modal from "react-bootstrap/Modal";
+import '../index.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import {
   GoogleMap,
   Marker,
-  InfoWindow,
   useLoadScript,
 } from "@react-google-maps/api";
 
@@ -29,17 +31,18 @@ const mapContainerStyle = {
   width: "100vw",
   height: "100vh",
 };
-const center = {
-  lat: 39.7459467,
-  lng: -75.5465889,
+const defaultCenter = {
+  lat: 38.9072,
+  lng: -77.0369,
 };
 const options = {
   styles: mapStyleLight,
   disableDefaultUI: true,
+  gestureHandling: "greedy",
   zoomControl: true,
 };
 
-export default function Map() {
+export default function Map(props) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyCFtt_CERjJShclgxZ65yz400JFuZkWkVQ",
     libraries,
@@ -58,13 +61,14 @@ export default function Map() {
 
   const [data, setData] = useState([]);
 
+  const center = (props.location.state === undefined) ? defaultCenter : props.location.state.centeredOn;
+
   useEffect(() => {
     const fetchData = async () => {
-      fetch("/items")
+      fetch("/items/")
         .then((res) => res.json())
         .then((list) => setData(list.info)); //working, component shows this
     };
-
     fetchData();
   }, []);
 
@@ -73,8 +77,7 @@ export default function Map() {
 
   return (
     <div>
-      <h1>InstaSpots</h1>
-
+      <a href='/'><h1>InstaSpots</h1><img className='home' src='homeIcon.svg' alt='home'/></a>
       <Search panMap={panMap} />
       <Locate panMap={panMap} />
       <GoogleMap
@@ -98,32 +101,29 @@ export default function Map() {
             }}
           />
         ))}
-
         {selected ? (
-          <InfoWindow
-            position={{ lat: selected.lat, lng: selected.lng }}
-            onCloseClick={() => {
-              setSelected(null);
-            }}
-          >
-            <div>
+          <Modal show={selected} onHide={() => setSelected(null)}>
+            <Modal.Header closeButton>
+              <Modal.Title>{selected.title}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
               <InstagramEmbed
                 url={selected.insta}
-                maxWidth={320}
+                maxWidth={475}
                 hideCaption={true}
                 containerTagName="div"
               />
-              <h3>{selected.title}</h3>
-              <h4>
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${selected.lat},${selected.lng}`}
-                  target="_blank"
-                >
-                  Directions
-                </a>
-              </h4>
-            </div>
-          </InfoWindow>
+            </Modal.Body>
+            <Modal.Footer>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${selected.lat},${selected.lng}`}
+                target="_blank"
+                class="mr-auto"
+              >
+                Directions
+              </a>
+            </Modal.Footer>
+          </Modal>
         ) : null}
       </GoogleMap>
       <button
@@ -132,8 +132,7 @@ export default function Map() {
           window.location.assign("/suggest");
         }}
       >
-        {" "}
-        Suggest a new location
+        Suggest a New Location
       </button>
       <a className="insta" href="https://www.instagram.com/brandonferrell16/">
         <img src="./instagram.svg" alt="My Instagram" />
@@ -199,7 +198,7 @@ function Search({ panMap }) {
             setValue(event.target.value);
           }}
           disabled={!ready}
-          placeholder="Enter an Address"
+          placeholder="Enter a Location"
         />
         <ComboboxPopover>
           <ComboboxList>

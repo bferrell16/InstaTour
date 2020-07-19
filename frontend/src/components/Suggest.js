@@ -1,6 +1,7 @@
 import React from "react";
 import { LoadScript, Autocomplete } from "@react-google-maps/api";
 import "@reach/combobox/styles.css";
+import '../index.css';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -74,7 +75,7 @@ class Suggest extends React.Component {
             window.location.assign("/");
           }}
         >
-          Back to the map
+          Home
         </button>
         <LoadScript
           libraries={libraries.lib}

@@ -19,10 +19,15 @@ h1 {
   top: 1rem;
   left: 1rem;
   color: #281414;
+  font-size: 3vw;
   z-index: 10;
   margin: 0;
   padding: 0;
   font-family: monospace;
+}
+
+.home {
+  display: none;
 }
 
 .search {
@@ -47,20 +52,21 @@ h1 {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  width: 200px;
+  width: 210px;
   z-index: 10;
 }
 
 .btn-white {
   border: solid 2px black;
   background: transparent;
-  background-color: black;
-  color: #fff !important;
+  color: black !important;
+  font-weight: 600;
+  white-space: nowrap; 
 }
 .btn-white:hover {
-  border: solid 2px #fff;
-  background: #fff;
-  color: #1f1f1f !important;
+  border: solid 2px black;
+  background: black;
+  color: white !important;
 }
 
 .locate {
@@ -73,7 +79,7 @@ h1 {
 }
 
 .locate img {
-  width: 30px;
+  width: 40px;
   cursor: pointer;
 }
 
@@ -90,4 +96,34 @@ h1 {
   background: none;
   border: none;
   z-index: 10;
+}
+
+@media (max-width: 900px) {
+  .insta {
+    width: 40px;
+  }
+
+  .home {
+    display: block;
+    z-index: 10;
+    position: absolute;
+    top: 1em;
+    fill: white !important;
+    left: .5rem;
+    height: 40px;
+    width: auto;
+  }
+
+  h1 {
+    display: none;
+  }
+
+  .search {
+    width: 250px;
+  }
+
+  .search input {
+    padding: 0.25rem;
+    font-size: 1rem;
+  }
 }
