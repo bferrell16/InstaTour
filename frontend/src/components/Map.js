@@ -145,7 +145,7 @@ export default function Map(props) {
                 <Modal.Footer>
                   Submitted by:
                   <a
-                    href={`www.instagram.com/${selected.submittedBy}`}
+                    href={`http://instagram.com/${selected.submittedBy}`}
                     target="_blank"
                     className="mr-auto"
                   >
