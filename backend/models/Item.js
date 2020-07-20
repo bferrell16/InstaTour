@@ -25,7 +25,15 @@ const ItemSchema = new Schema({
     approved: {
         type: Boolean,
         required: true
-    }
+    },
+    submittedBy: {
+        type: String,
+        required: false
+    },
+    tips: [{
+        type: String,
+        required: false
+    }],
     },
     {timestamps : true}
 );

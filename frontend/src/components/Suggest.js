@@ -19,6 +19,8 @@ class Suggest extends React.Component {
       tempLng: "",
       tempType: "./art.svg",
       tempInsta: "",
+      submittedBy: "",
+      tips: [],
       tempApproved: false,
       sucess: true,
     };
@@ -50,6 +52,8 @@ class Suggest extends React.Component {
       lng: this.state.tempLng,
       insta: this.state.tempInsta,
       icon: this.state.tempType,
+      submittedBy: this.state.submittedBy,
+      tips: this.state.tips,
       approved: false,
     };
     let options = {
@@ -136,7 +140,31 @@ class Suggest extends React.Component {
                     <input className="autocomp" type="text" />
                   </Autocomplete>
                 </Form.Group>
-
+                <Form.Group controlId="suggestion.submittedBy">
+                  <Form.Label>
+                    What is your instagram handle? (optional, will be public, to credit you for finding it)
+                  </Form.Label>
+                  <Form.Control
+                    name="submittedBy"
+                    value={this.state.submittedBy}
+                    onChange={this.handleChange}
+                    type="input"
+                    placeholder="brandonferrell16"
+                  />
+                </Form.Group>
+                <Form.Group controlId="suggestion.tips">
+                  <Form.Label>
+                    Have any tips for the spot? (optional)
+                  </Form.Label>
+                  <Form.Control
+                    name="tips"
+                    value={this.state.tips}
+                    onChange={this.handleChange}
+                    as="textarea"
+                    rows="4"
+                    placeholder="Park at the bottom of the hill. Better at night. Admission is $5..."
+                  />
+                </Form.Group>
                 <Button variant="primary" type="submit">
                   Submit
                 </Button>
