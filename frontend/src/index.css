@@ -44,6 +44,10 @@ h1 {
   width: 100%;
 }
 
+ul {
+  list-style-position: inside;
+}
+
 .suggest {
   position: absolute;
   bottom: 1rem;

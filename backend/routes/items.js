@@ -29,6 +29,8 @@ router.post("/", (req, res) => {
   d.title = req.body.title;
   d.insta = req.body.insta;
   d.approved = req.body.approved;
+  d.tips = [req.body.tips];
+  d.submittedBy = req.body.submittedBy;
 
   d.save((err) => {
     if (err) {

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
-import '../index.css';
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
+import Card from "react-bootstrap/Card";
+import "../index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  GoogleMap,
-  Marker,
-  useLoadScript,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 
 import usePlacesAutocomplete, {
   getGeocode,
@@ -61,7 +60,10 @@ export default function Map(props) {
 
   const [data, setData] = useState([]);
 
-  const center = (props.location.state === undefined) ? defaultCenter : props.location.state.centeredOn;
+  const center =
+    props.location.state === undefined
+      ? defaultCenter
+      : props.location.state.centeredOn;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,7 +79,10 @@ export default function Map(props) {
 
   return (
     <div>
-      <a href='/'><h1>InstaSpots</h1><img className='home' src='homeIcon.svg' alt='home'/></a>
+      <a href="/">
+        <h1>InstaSpots</h1>
+        <img className="home" src="homeIcon.svg" alt="home" />
+      </a>
       <Search panMap={panMap} />
       <Locate panMap={panMap} />
       <GoogleMap
@@ -106,23 +111,49 @@ export default function Map(props) {
             <Modal.Header closeButton>
               <Modal.Title>{selected.title}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-              <InstagramEmbed
-                url={selected.insta}
-                maxWidth={475}
-                hideCaption={true}
-                containerTagName="div"
-              />
-            </Modal.Body>
-            <Modal.Footer>
-              <a
-                href={`https://www.google.com/maps/search/?api=1&query=${selected.lat},${selected.lng}`}
-                target="_blank"
-                class="mr-auto"
-              >
-                Directions
-              </a>
-            </Modal.Footer>
+            <Tabs defaultActiveKey="overview" id="uncontrolled-tab-example">
+              <Tab eventKey="overview" title="Overview">
+                <Modal.Body>
+                  <InstagramEmbed
+                    url={selected.insta}
+                    maxWidth={475}
+                    hideCaption={true}
+                    containerTagName="div"
+                  />
+                </Modal.Body>
+                <Modal.Footer>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${selected.lat},${selected.lng}`}
+                    target="_blank"
+                    className="mr-auto"
+                  >
+                    Directions
+                  </a>
+                </Modal.Footer>
+              </Tab>
+              <Tab eventKey="details" title="Details">
+                <Modal.Body>
+                  <Card>
+                    Tips for the area:
+                    <ul>
+                    {selected.tips.map((tip) => {
+                      return <li className="mr-auto">{tip}</li>
+                    })}
+                    </ul>
+                  </Card>
+                </Modal.Body>
+                <Modal.Footer>
+                  Submitted by:
+                  <a
+                    href={`www.instagram.com/${selected.submittedBy}`}
+                    target="_blank"
+                    className="mr-auto"
+                  >
+                    {selected.submittedBy}
+                  </a>
+                </Modal.Footer>
+              </Tab>
+            </Tabs>
           </Modal>
         ) : null}
       </GoogleMap>
