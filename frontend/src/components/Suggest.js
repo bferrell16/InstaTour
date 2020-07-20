@@ -20,7 +20,7 @@ class Suggest extends React.Component {
       tempType: "./art.svg",
       tempInsta: "",
       submittedBy: "",
-      tips: [],
+      tips: null,
       tempApproved: false,
       sucess: true,
     };
@@ -46,6 +46,9 @@ class Suggest extends React.Component {
   }
 
   putData() {
+    if (this.state.tips == "" ){
+      this.state.tips = null;
+    }
     let data = {
       title: this.state.tempTitle,
       lat: this.state.tempLat,
