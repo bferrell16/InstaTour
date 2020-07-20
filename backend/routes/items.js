@@ -34,7 +34,7 @@ router.post("/", (req, res) => {
 
   d.save((err) => {
     if (err) {
-      console.log(d);
+      console.log(err);
       return res.json({ sucess: false, error: err });
     }
     return res.json({ sucess: true });
